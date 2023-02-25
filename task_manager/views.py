@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 
+from task_manager.forms import TaskForm
 from task_manager.models import Task, TaskType
 
 
@@ -72,6 +73,5 @@ class TaskDetailView(generic.DetailView, LoginRequiredMixin):
 
 class TaskUpdateView(generic.UpdateView, LoginRequiredMixin):
     model = Task
-    template_name = 'task_manager/task_form.html'
-    fields = '__all__'
+    form_class = TaskForm
     success_url = reverse_lazy('task_manager:index')
