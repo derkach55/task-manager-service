@@ -3,7 +3,14 @@
 {% block content %}
   <div class="card" style="margin-top: 50px">
     <div class="card-header">
-      <h3 class="card-title">Tasks List</h3>
+      <h3 class="card-title">
+        {% if task_list.0.is_completed %}
+          Completed
+        {% else %}
+          Uncompleted
+        {% endif %}
+        Tasks List
+      </h3>
     </div>
     <div class="card-body">
       <div class="table-responsive">
@@ -11,30 +18,20 @@
           <thead>
             <tr>
               <th>Name</th>
-              <th>Description</th>
-              <th class="text-center">Status</th>
-              <th class="text-center"><i class="icon-settings"></i></th>
+              <th>Task Type</th>
+              <th>Priority</th>
+              <th>Deadline</th>
+              <th>Status</th>
             </tr>
           </thead>
           <tbody>
-            {% for task in completed_tasks %}
+            {% for task in task_list %}
             <tr>
               <td>{{ task.name }}</td>
-              <td>{{ item.description }}</td>
-              <td class="text-center">
-                {% if item.status == 'active' %}
-                  <span class="badge badge-success">Active</span>
-                {% else %}
-                  <span class="badge badge-danger">Inactive</span>
-                {% endif %}
-              </td>
-              <td class="text-center">
-                <div class="btn-group">
-                  <a href="{% url 'item_detail' item.pk %}" class="btn btn-sm btn-primary"><i class="fe fe-eye"></i></a>
-                  <a href="{% url 'item_edit' item.pk %}" class="btn btn-sm btn-secondary"><i class="fe fe-edit"></i></a>
-                  <a href="{% url 'item_delete' item.pk %}" class="btn btn-sm btn-danger"><i class="fe fe-trash"></i></a>
-                </div>
-              </td>
+              <td>{{ task.task_type }}</td>
+              <td>{{ task.priority }}</td>
+              <td>{{ task.deadline }}</td>
+              <td>Completed</td>
             </tr>
             {% empty %}
             <tr>
@@ -44,8 +41,6 @@
           </tbody>
         </table>
       </div>
-    </div>
-    <div class="card-footer">
     </div>
   </div>
 {% endblock %}
