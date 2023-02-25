@@ -10,6 +10,7 @@ from task_manager.views import (
     TaskTypeCreateView,
     UncompletedTasksListView,
     TaskDetailView,
+    TaskUpdateView,
 )
 
 urlpatterns = [
@@ -17,6 +18,7 @@ urlpatterns = [
     path('tasks/completed/', CompletedTasksListView.as_view(), name='completed-tasks'),
     path('tasks/uncompleted/', UncompletedTasksListView.as_view(), name='uncompleted-tasks'),
     path('tasks/<int:pk>/', TaskDetailView.as_view(), name='task-detail'),
+    path('tasks/<int:pk>/update/', TaskUpdateView.as_view(), name='task-update'),
     path('tasks_types/', TaskTypeListView.as_view(), name='task-types'),
     path('tasks_types/<int:pk>/', TaskTypeDetailView.as_view(), name='task-type-detail'),
     path('tasks_types/<int:pk>/update/', TaskTypeUpdateView.as_view(), name='task-type-update'),
