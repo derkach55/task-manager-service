@@ -27,13 +27,13 @@
           </thead>
           <tbody>
             {% for task in task_list %}
-            <tr>
-              <td>{{ task.name }}</td>
-              <td>{{ task.task_type }}</td>
-              <td>{{ task.priority }}</td>
-              <td>{{ task.deadline }}</td>
-              <td>{{ task.is_completed|yesno:"Completed,Uncompleted" }}</td>
-            </tr>
+              <tr>
+                <td><a href="{% url 'task_manager:task-detail' task.pk %}">{{ task.name }}</a></td>
+                <td>{{ task.task_type }}</td>
+                <td>{{ task.priority }}</td>
+                <td>{{ task.deadline }}</td>
+                <td>{{ task.is_completed|yesno:"Completed,Uncompleted" }}</td>
+              </tr>
             {% empty %}
             <tr>
               <td colspan="5" class="text-center">No items found.</td>

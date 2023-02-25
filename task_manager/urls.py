@@ -9,12 +9,14 @@ from task_manager.views import (
     TaskTypeDeleteView,
     TaskTypeCreateView,
     UncompletedTasksListView,
+    TaskDetailView,
 )
 
 urlpatterns = [
     path('', index, name='index'),
     path('tasks/completed/', CompletedTasksListView.as_view(), name='completed-tasks'),
     path('tasks/uncompleted/', UncompletedTasksListView.as_view(), name='uncompleted-tasks'),
+    path('tasks/<int:pk>/', TaskDetailView.as_view(), name='task-detail'),
     path('tasks_types/', TaskTypeListView.as_view(), name='task-types'),
     path('tasks_types/<int:pk>/', TaskTypeDetailView.as_view(), name='task-type-detail'),
     path('tasks_types/<int:pk>/update/', TaskTypeUpdateView.as_view(), name='task-type-update'),
