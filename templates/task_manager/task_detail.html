@@ -18,6 +18,19 @@
                   Update
                 </button>
               </a>
+              {% if not task.is_completed %}
+                <a href="{% url 'task_manager:change_is_completed' task.pk %}">
+                  <button type="button" class="btn btn-success w-auto me-1 mb-0" style="float: right">
+                    Mark as done
+                  </button>
+                </a>
+              {% else %}
+                <a href="{% url 'task_manager:change_is_completed' task.pk %}">
+                  <button type="button" class="btn btn-danger w-auto me-1 mb-0" style="float: right">
+                    Mark as undone
+                  </button>
+                </a>
+              {% endif %}
             </h6>
           </div>
           <div class="card-body px-0 pt-0 pb-2">
