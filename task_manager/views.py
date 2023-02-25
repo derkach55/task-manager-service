@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.views import generic
 
 from task_manager.models import Task, TaskType
@@ -35,3 +36,16 @@ class TaskTypeListView(generic.ListView, LoginRequiredMixin):
 class TaskTypeDetailView(generic.DetailView, LoginRequiredMixin):
     model = TaskType
     template_name = 'task_manager/task_type_detail.html'
+
+
+class TaskTypeUpdateView(generic.UpdateView, LoginRequiredMixin):
+    model = TaskType
+    template_name = 'task_manager/task_type_form.html'
+    fields = '__all__'
+    success_url = reverse_lazy('task_manager:task-types')
+
+
+class TaskTypeDeleteView(generic.DeleteView, LoginRequiredMixin):
+    model = TaskType
+    template_name = 'task_manager/task_type_confirm_delete.html'
+    success_url = reverse_lazy('task_manager:task-types')

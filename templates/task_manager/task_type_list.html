@@ -17,7 +17,7 @@
           <tbody>
             {% for type in task_types %}
             <tr>
-              <td><a href="{% url 'task_manager:task-detail' type.pk %}">{{ type.name }}</a></td>
+              <td><a href="{% url 'task_manager:task-type-detail' type.pk %}">{{ type.name }}</a></td>
             </tr>
             {% empty %}
             <tr>
