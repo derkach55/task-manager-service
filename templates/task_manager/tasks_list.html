@@ -5,6 +5,11 @@
     <div class="card-header">
       <h3 class="card-title">
         Tasks List
+        <a href="{% url 'task_manager:task-create' %}">
+          <button type="button" class="btn btn-success w-auto me-1 mb-0" style="float: right">
+            Create
+          </button>
+        </a>
       </h3>
     </div>
     <div class="card-body">

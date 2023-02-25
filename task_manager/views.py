@@ -74,3 +74,9 @@ class TaskDeleteView(generic.DeleteView, LoginRequiredMixin):
     model = Task
     success_url = reverse_lazy('task_manager:tasks-list')
 
+
+class TaskCreateView(generic.CreateView, LoginRequiredMixin):
+    model = Task
+    form_class = TaskForm
+    success_url = reverse_lazy('task_manager:tasks-list')
+

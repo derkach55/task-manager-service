@@ -12,4 +12,4 @@ class TaskForm(forms.ModelForm):
 
     class Meta:
         model = Task
-        fields = '__all__'
+        fields = ['name', 'task_type', 'description', 'deadline', 'priority', 'assignees']
