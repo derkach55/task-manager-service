@@ -4,7 +4,14 @@
 {% block content %}
   <div class="card" style="margin: 7% 5% 0 5%;">
     <div class="card-header">
-      <h3 class="card-title">Task Types List</h3>
+      <h3 class="card-title">
+        Task Types List
+        <a href="{% url 'task_manager:task-type-create' %}">
+          <button type="button" class="btn btn-success w-auto me-1 mb-0" style="float: right">
+            Create
+          </button>
+        </a>
+      </h3>
     </div>
     <div class="card-body">
       <div class="table-responsive">
