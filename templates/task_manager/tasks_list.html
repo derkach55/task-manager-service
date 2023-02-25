@@ -10,6 +10,7 @@
           Uncompleted
         {% endif %}
         Tasks List
+
       </h3>
     </div>
     <div class="card-body">
@@ -31,7 +32,7 @@
               <td>{{ task.task_type }}</td>
               <td>{{ task.priority }}</td>
               <td>{{ task.deadline }}</td>
-              <td>Completed</td>
+              <td>{{ task.is_completed|yesno:"Completed,Uncompleted" }}</td>
             </tr>
             {% empty %}
             <tr>

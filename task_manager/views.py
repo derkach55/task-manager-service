@@ -27,6 +27,13 @@ class CompletedTasksListView(generic.ListView, LoginRequiredMixin):
     template_name = 'task_manager/tasks_list.html'
 
 
+class UncompletedTasksListView(generic.ListView, LoginRequiredMixin):
+    model = Task
+    queryset = Task.objects.filter(is_completed=False).select_related('task_type').prefetch_related('assignees')
+    context_object_name = 'task_list'
+    template_name = 'task_manager/tasks_list.html'
+
+
 class TaskTypeListView(generic.ListView, LoginRequiredMixin):
     model = TaskType
     context_object_name = 'task_types'
