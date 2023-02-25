@@ -21,16 +21,9 @@ def index(request):
     return render(request, 'task_manager/index.html', context=context)
 
 
-class CompletedTasksListView(generic.ListView, LoginRequiredMixin):
+class TasksListView(generic.ListView, LoginRequiredMixin):
     model = Task
-    queryset = Task.objects.filter(is_completed=True).select_related('task_type').prefetch_related('assignees')
-    context_object_name = 'task_list'
-    template_name = 'task_manager/tasks_list.html'
-
-
-class UncompletedTasksListView(generic.ListView, LoginRequiredMixin):
-    model = Task
-    queryset = Task.objects.filter(is_completed=False).select_related('task_type').prefetch_related('assignees')
+    queryset = Task.objects.select_related('task_type').prefetch_related('assignees')
     context_object_name = 'task_list'
     template_name = 'task_manager/tasks_list.html'
 
@@ -74,10 +67,10 @@ class TaskDetailView(generic.DetailView, LoginRequiredMixin):
 class TaskUpdateView(generic.UpdateView, LoginRequiredMixin):
     model = Task
     form_class = TaskForm
-    success_url = reverse_lazy('task_manager:index')
+    success_url = reverse_lazy('task_manager:tasks-list')
 
 
 class TaskDeleteView(generic.DeleteView, LoginRequiredMixin):
     model = Task
-    success_url = reverse_lazy('task_manager:index')
+    success_url = reverse_lazy('task_manager:tasks-list')
 
