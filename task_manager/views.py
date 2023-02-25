@@ -30,3 +30,8 @@ class TaskTypeListView(generic.ListView, LoginRequiredMixin):
     model = TaskType
     context_object_name = 'task_types'
     template_name = 'task_manager/task_type_list.html'
+
+
+class TaskTypeDetailView(generic.DetailView, LoginRequiredMixin):
+    model = TaskType
+    template_name = 'task_manager/task_type_detail.html'

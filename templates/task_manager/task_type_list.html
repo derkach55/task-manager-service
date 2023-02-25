@@ -12,16 +12,12 @@
           <thead>
             <tr>
               <th width="500px">Name</th>
-              <th></th>
-              <th></th>
             </tr>
           </thead>
           <tbody>
             {% for type in task_types %}
             <tr>
-              <td >{{ type.name }}</td>
-              <td></td>
-              <td></td>
+              <td><a href="{% url 'task_manager:task-detail' type.pk %}">{{ type.name }}</a></td>
             </tr>
             {% empty %}
             <tr>

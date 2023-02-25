@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container-fluid py-4" style="margin: 7% 5% 0 5%">
+    <div class="row">
+      <div class="col-lg-10">
+        <div class="card">
+          <div class="card-header pb-0">
+            <h6>Task Type Detail</h6>
+          </div>
+          <div class="card-body px-0 pt-0 pb-2">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <h6 class="mb-0">Name:</h6>
+                <p class="text-sm">{{ tasktype.name }}</p>
+              </li>
+              {% if tasktype.task_set %}
+                <div class="card-header pb-0">
+                  <h6>Tasks</h6>
+                </div>
+                {% for task in tasktype.task_set.all %}
+                  <li class="list-group-item">
+                    <h6 class="mb-0">Name:</h6>
+                    <p class="text-sm">{{ task.name }}</p>
+                  </li>
+                {% empty %}
+                  <li class="list-group-item">
+                    <p class="text-sm">No tasks found.</p>
+                  </li>
+                {% endfor %}
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
