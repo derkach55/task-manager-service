@@ -75,3 +75,9 @@ class TaskUpdateView(generic.UpdateView, LoginRequiredMixin):
     model = Task
     form_class = TaskForm
     success_url = reverse_lazy('task_manager:index')
+
+
+class TaskDeleteView(generic.DeleteView, LoginRequiredMixin):
+    model = Task
+    success_url = reverse_lazy('task_manager:index')
+
