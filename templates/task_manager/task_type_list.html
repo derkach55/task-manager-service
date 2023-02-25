@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+  <div class="card" style="margin: 7% 5% 0 5%;">
+    <div class="card-header">
+      <h3 class="card-title">Tasks List</h3>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th width="500px">Name</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for type in task_types %}
+            <tr>
+              <td >{{ type.name }}</td>
+              <td></td>
+              <td></td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="5" class="text-center">No items found.</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card-footer">
+    </div>
+  </div>
+{% endblock %}
+

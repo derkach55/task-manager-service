@@ -1,8 +1,9 @@
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
+from django.views import generic
 
-from task_manager.models import Task
+from task_manager.models import Task, TaskType
 
 
 @login_required
@@ -16,3 +17,16 @@ def index(request):
         'num_un_completed_tasks': num_un_completed_tasks,
     }
     return render(request, 'task_manager/index.html', context=context)
+
+
+class CompletedTasksListView(generic.ListView, LoginRequiredMixin):
+    model = Task
+    queryset = Task.objects.filter(is_completed=True).select_related('task_type').prefetch_related('assignees')
+    context_object_name = 'completed_tasks'
+    template_name = 'task_manager/tasks_list.html'
+
+
+class TaskTypeListView(generic.ListView, LoginRequiredMixin):
+    model = TaskType
+    context_object_name = 'task_types'
+    template_name = 'task_manager/task_type_list.html'
