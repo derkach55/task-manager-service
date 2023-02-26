@@ -13,6 +13,11 @@ from task_manager.views import (
     TaskDeleteView,
     TaskCreateView,
     change_task_is_completed,
+    PositionListView,
+    PositionDetailView,
+    PositionUpdateView,
+    PositionDeleteView,
+    PositionCreateView,
 )
 
 urlpatterns = [
@@ -28,6 +33,12 @@ urlpatterns = [
     path('tasks_types/<int:pk>/delete/', TaskTypeDeleteView.as_view(), name='task-type-delete'),
     path('tasks_types/create/', TaskTypeCreateView.as_view(), name='task-type-create'),
     path('tasks/<int:pk>/mark_as_done/', change_task_is_completed, name='change_is_completed'),
+    path('positions/', PositionListView.as_view(), name='position-list'),
+    path('positions/<int:pk>/', PositionDetailView.as_view(), name='position-detail'),
+    path('positions/<int:pk>/update/', PositionUpdateView.as_view(), name='position-update'),
+    path('positions/<int:pk>/delete/', PositionDeleteView.as_view(), name='position-delete'),
+    path('positions/create/', PositionCreateView.as_view(), name='position-create'),
+
 ]
 
 app_name = 'task_manager'

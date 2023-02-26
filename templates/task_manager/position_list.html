@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title">
+        Worker`s Position List
+        <a href="{% url 'task_manager:position-create' %}">
+          <button type="button" class="btn btn-success w-auto me-1 mb-0" style="float: right">
+            Create
+          </button>
+        </a>
+      </h3>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th width="500px">Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for position in position_list %}
+            <tr>
+              <td><a href="{% url 'task_manager:position-detail' position.pk %}">{{ position.name }}</a></td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="5" class="text-center">No items found.</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card-footer">
+    </div>
+  </div>
+{% endblock %}

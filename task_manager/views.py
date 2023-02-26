@@ -6,14 +6,14 @@ from django.urls import reverse_lazy
 from django.views import generic
 
 from task_manager.forms import TaskForm
-from task_manager.models import Task, TaskType
+from task_manager.models import Task, TaskType, Position, Worker
 
 
 @login_required
 def index(request):
     num_completed_tasks = Task.objects.filter(is_completed=True).count()
     num_un_completed_tasks = Task.objects.filter(is_completed=False).count()
-    num_workers = Task.objects.count()
+    num_workers = Worker.objects.count()
     context = {
         'num_completed_tasks': num_completed_tasks,
         'num_workers': num_workers,
@@ -88,3 +88,28 @@ def change_task_is_completed(request, pk):
     task.is_completed = not task.is_completed
     task.save()
     return HttpResponseRedirect(reverse_lazy('task_manager:task-detail', args=[pk]))
+
+
+class PositionListView(generic.ListView, LoginRequiredMixin):
+    model = Position
+
+
+class PositionDetailView(generic.DetailView, LoginRequiredMixin):
+    model = Position
+
+
+class PositionUpdateView(generic.UpdateView, LoginRequiredMixin):
+    model = Position
+    fields = '__all__'
+    success_url = reverse_lazy('task_manager:position-list')
+
+
+class PositionDeleteView(generic.DeleteView, LoginRequiredMixin):
+    model = Position
+    success_url = reverse_lazy('task_manager:position-list')
+
+
+class PositionCreateView(generic.CreateView, LoginRequiredMixin):
+    model = Position
+    fields = '__all__'
+    success_url = reverse_lazy('task_manager:position-list')

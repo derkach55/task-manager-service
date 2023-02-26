@@ -33,6 +33,22 @@
                     </div>
                   </div>
                 </li>
+                <li class="nav-item dropdown dropdown-hover mx-2">
+                  <a class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" id="dropdownMenuPages" data-bs-toggle="dropdown" aria-expanded="false">
+                    Workers
+                    <img src="{{ ASSETS_ROOT }}/img/down-arrow-dark.svg" alt="down-arrow" class="arrow ms-1">
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-animation dropdown-md p-3 border-radius-lg mt-0 mt-lg-3" aria-labelledby="dropdownMenuPages">
+                    <div class="d-none d-lg-block">
+                      <a href="{% url 'task_manager:task-types' %}" class="dropdown-item border-radius-md">
+                        Team Members
+                      </a>
+                      <a href="{% url 'task_manager:position-list' %}" class="dropdown-item border-radius-md">
+                        Worker`s Positions
+                      </a>
+                    </div>
+                  </div>
+                </li>
                 {% if user.is_authenticated %}
                   <li class="nav-item ms-lg-auto">
                     <a class="nav-link nav-link-icon me-2" href="{% url 'logout' %}">
