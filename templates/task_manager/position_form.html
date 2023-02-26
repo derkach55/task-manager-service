@@ -2,6 +2,10 @@
 {% load crispy_forms_filters %}
 {% load crispy_forms_tags %}
 
+{% block title %}
+  {{ object|yesno:"Update,Create" }} position
+{% endblock %}
+
 {% block content %}
   <h3>{{ object|yesno:"Update,Create" }} position</h3>
   <form action="" method="post" novalidate style="margin-top: 20px">
