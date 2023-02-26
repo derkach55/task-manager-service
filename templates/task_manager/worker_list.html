@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Workers
+{% endblock %}
+
+{% block content %}
+  <div class="card" style="margin-top: 50px">
+    <div class="card-header">
+      <h3 class="card-title">
+        Workers List
+        <a href="{% url 'task_manager:task-create' %}">
+          <button type="button" class="btn btn-success w-auto me-1 mb-0" style="float: right">
+            Create
+          </button>
+        </a>
+      </h3>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover table-outline table-vcenter text-nowrap">
+          <thead>
+            <tr>
+              <th>Username</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Position</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for worker in worker_list %}
+              <tr>
+                <td><a href="{% url 'task_manager:worker-detail' worker.pk %}">{{ worker.username }}</a></td>
+                <td>{{ worker.first_name }}</td>
+                <td>{{ worker.last_name }}</td>
+                <td>{{ worker.position }}</td>
+              </tr>
+            {% empty %}
+            <tr>
+              <td colspan="5" class="text-center">No workers found.</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock %}

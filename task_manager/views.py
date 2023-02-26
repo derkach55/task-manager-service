@@ -113,3 +113,22 @@ class PositionCreateView(generic.CreateView, LoginRequiredMixin):
     model = Position
     fields = '__all__'
     success_url = reverse_lazy('task_manager:position-list')
+
+
+class WorkerListView(generic.ListView, LoginRequiredMixin):
+    model = Worker
+
+
+class WorkerDetailView(generic.DetailView, LoginRequiredMixin):
+    model = Worker
+
+
+class WorkerUpdateView(generic.UpdateView, LoginRequiredMixin):
+    model = Worker
+    fields = ['position']
+    success_url = reverse_lazy('task_manager:worker-list')
+
+
+class WorkerDeleteView(generic.DeleteView, LoginRequiredMixin):
+    model = Worker
+    success_url = reverse_lazy('task_manager:worker-list')

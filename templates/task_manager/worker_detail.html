@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Workers
+{% endblock %}
+
+{% block content %}
+  <div class="container-fluid py-4">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-header pb-0">
+            <h6>
+              Worker Detail
+              <a href="{% url 'task_manager:worker-delete' worker.pk %}">
+                <button type="button" class="btn btn-danger w-auto me-1 mb-0" style="float: right">
+                   Delete
+                </button>
+              </a>
+              <a href="{% url 'task_manager:worker-update' worker.pk %}">
+                <button type="button" class="btn btn-info w-auto me-1 mb-0" style="float: right">
+                  Update Position
+                </button>
+              </a>
+            </h6>
+          </div>
+          <div class="card-body px-0 pt-0 pb-2">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <h6 class="mb-0">Username:</h6>
+                <p class="text-secondary">{{ worker.username }}</p>
+              </li>
+              <li class="list-group-item">
+                <h6 class="mb-0">First Name:</h6>
+                <p class="text-secondary">{{ worker.first_name }}</p>
+              </li>
+              <li class="list-group-item">
+                <h6 class="mb-0">Last Name:</h6>
+                <p class="text-secondary">{{ worker.last_name }}</p>
+              </li>
+              <li class="list-group-item">
+                <h6 class="mb-0">Position:</h6>
+                <p class="text-secondary">{{ worker.position }}</p>
+              </li>
+              {% if worker.tasks %}
+                <div class="card-header pb-0">
+                  <h6>Tasks</h6>
+                </div>
+                {% for task in worker.tasks.all %}
+                  <li class="list-group-item">
+                    <h6 class="mb-0">Name:</h6>
+                    <p class="text-secondary">{{ task.name }}</p>
+                  </li>
+                {% empty %}
+                  <li class="list-group-item">
+                    <p class="text-secondary">No tasks found.</p>
+                  </li>
+                {% endfor %}
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
