@@ -20,3 +20,39 @@ class WorkerCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = Worker
         fields = UserCreationForm.Meta.fields + ('position', 'first_name', 'last_name', 'email',)
+
+
+class TaskTypeSearchForm(forms.Form):
+    name = forms.CharField(
+        max_length=255,
+        required=False,
+        label='',
+        widget=forms.TextInput(attrs={'placeholder': 'Enter Name'})
+    )
+
+
+class TaskSearchForm(forms.Form):
+    name = forms.CharField(
+        max_length=255,
+        required=False,
+        label='',
+        widget=forms.TextInput(attrs={'placeholder': 'Enter Name'})
+    )
+
+
+class PositionSearchForm(forms.Form):
+    name = forms.CharField(
+        max_length=255,
+        required=False,
+        label='',
+        widget=forms.TextInput(attrs={'placeholder': 'Enter Name'})
+    )
+
+
+class WorkerSearchForm(forms.Form):
+    user_name = forms.CharField(
+        max_length=255,
+        required=False,
+        label='',
+        widget=forms.TextInput(attrs={'placeholder': 'Enter Username'})
+    )
