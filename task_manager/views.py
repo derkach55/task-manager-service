@@ -25,9 +25,11 @@ def index(request):
 
 class TasksListView(generic.ListView, LoginRequiredMixin):
     model = Task
-    queryset = Task.objects.select_related('task_type').prefetch_related('assignees')
+    queryset = Task.objects.select_related('task_type').prefetch_related('assignees').order_by(
+        'is_completed', 'deadline')
     context_object_name = 'task_list'
     template_name = 'task_manager/tasks_list.html'
+    paginate_by = 5
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(TasksListView, self).get_context_data()
@@ -49,6 +51,7 @@ class TaskTypeListView(generic.ListView, LoginRequiredMixin):
     model = TaskType
     context_object_name = 'task_types'
     template_name = 'task_manager/task_type_list.html'
+    paginate_by = 5
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(TaskTypeListView, self).get_context_data()
@@ -123,6 +126,7 @@ def change_task_is_completed(request, pk):
 
 class PositionListView(generic.ListView, LoginRequiredMixin):
     model = Position
+    paginate_by = 5
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(PositionListView, self).get_context_data()
@@ -163,6 +167,7 @@ class PositionCreateView(generic.CreateView, LoginRequiredMixin):
 
 class WorkerListView(generic.ListView, LoginRequiredMixin):
     model = Worker
+    paginate_by = 5
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(WorkerListView, self).get_context_data()
