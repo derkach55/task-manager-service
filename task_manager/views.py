@@ -5,7 +5,8 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 
-from task_manager.forms import TaskForm, WorkerCreationForm
+from task_manager.forms import TaskForm, WorkerCreationForm, TaskTypeSearchForm, TaskSearchForm, PositionSearchForm, \
+    WorkerSearchForm
 from task_manager.models import Task, TaskType, Position, Worker
 
 
@@ -28,11 +29,41 @@ class TasksListView(generic.ListView, LoginRequiredMixin):
     context_object_name = 'task_list'
     template_name = 'task_manager/tasks_list.html'
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(TasksListView, self).get_context_data()
+        name = self.request.GET.get('name', '')
+        context['search_field'] = TaskSearchForm(initial={'name': name})
+
+        return context
+
+    def get_queryset(self):
+        queryset = super(TasksListView, self).get_queryset()
+        name = self.request.GET.get('name')
+        if name:
+            queryset = queryset.filter(name__icontains=name)
+
+        return queryset
+
 
 class TaskTypeListView(generic.ListView, LoginRequiredMixin):
     model = TaskType
     context_object_name = 'task_types'
     template_name = 'task_manager/task_type_list.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(TaskTypeListView, self).get_context_data()
+        name = self.request.GET.get('name', '')
+        context['search_field'] = TaskTypeSearchForm(initial={'name': name})
+
+        return context
+
+    def get_queryset(self):
+        queryset = super(TaskTypeListView, self).get_queryset()
+        name = self.request.GET.get('name')
+        if name:
+            queryset = queryset.filter(name__icontains=name)
+
+        return queryset
 
 
 class TaskTypeDetailView(generic.DetailView, LoginRequiredMixin):
@@ -93,6 +124,21 @@ def change_task_is_completed(request, pk):
 class PositionListView(generic.ListView, LoginRequiredMixin):
     model = Position
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(PositionListView, self).get_context_data()
+        name = self.request.GET.get('name', '')
+        context['search_field'] = PositionSearchForm(initial={'name': name})
+
+        return context
+
+    def get_queryset(self):
+        queryset = super(PositionListView, self).get_queryset()
+        name = self.request.GET.get('name')
+        if name:
+            queryset = queryset.filter(name__icontains=name)
+
+        return queryset
+
 
 class PositionDetailView(generic.DetailView, LoginRequiredMixin):
     model = Position
@@ -117,6 +163,21 @@ class PositionCreateView(generic.CreateView, LoginRequiredMixin):
 
 class WorkerListView(generic.ListView, LoginRequiredMixin):
     model = Worker
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(WorkerListView, self).get_context_data()
+        user_name = self.request.GET.get('user_name', '')
+        context['search_field'] = WorkerSearchForm(initial={'user_name': user_name})
+
+        return context
+
+    def get_queryset(self):
+        queryset = super(WorkerListView, self).get_queryset()
+        user_name = self.request.GET.get('user_name')
+        if user_name:
+            queryset = queryset.filter(username__icontains=user_name)
+
+        return queryset
 
 
 class WorkerDetailView(generic.DetailView, LoginRequiredMixin):
