@@ -23,7 +23,7 @@ def index(request):
     return render(request, 'task_manager/index.html', context=context)
 
 
-class TasksListView(generic.ListView, LoginRequiredMixin):
+class TasksListView(LoginRequiredMixin, generic.ListView):
     model = Task
     queryset = Task.objects.select_related('task_type').prefetch_related('assignees').order_by(
         'is_completed', 'deadline')
@@ -47,7 +47,7 @@ class TasksListView(generic.ListView, LoginRequiredMixin):
         return queryset
 
 
-class TaskTypeListView(generic.ListView, LoginRequiredMixin):
+class TaskTypeListView(LoginRequiredMixin, generic.ListView):
     model = TaskType
     context_object_name = 'task_types'
     template_name = 'task_manager/task_type_list.html'
@@ -69,48 +69,48 @@ class TaskTypeListView(generic.ListView, LoginRequiredMixin):
         return queryset
 
 
-class TaskTypeDetailView(generic.DetailView, LoginRequiredMixin):
+class TaskTypeDetailView(LoginRequiredMixin, generic.DetailView):
     model = TaskType
     template_name = 'task_manager/task_type_detail.html'
 
 
-class TaskTypeUpdateView(generic.UpdateView, LoginRequiredMixin):
+class TaskTypeUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = TaskType
     template_name = 'task_manager/task_type_form.html'
     fields = '__all__'
     success_url = reverse_lazy('task_manager:task-types')
 
 
-class TaskTypeDeleteView(generic.DeleteView, LoginRequiredMixin):
+class TaskTypeDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = TaskType
     template_name = 'task_manager/task_type_confirm_delete.html'
     success_url = reverse_lazy('task_manager:task-types')
 
 
-class TaskTypeCreateView(generic.CreateView, LoginRequiredMixin):
+class TaskTypeCreateView(LoginRequiredMixin, generic.CreateView):
     model = TaskType
     template_name = 'task_manager/task_type_form.html'
     fields = '__all__'
     success_url = reverse_lazy('task_manager:task-types')
 
 
-class TaskDetailView(generic.DetailView, LoginRequiredMixin):
+class TaskDetailView(LoginRequiredMixin, generic.DetailView):
     model = Task
     template_name = 'task_manager/task_detail.html'
 
 
-class TaskUpdateView(generic.UpdateView, LoginRequiredMixin):
+class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Task
     form_class = TaskForm
     success_url = reverse_lazy('task_manager:tasks-list')
 
 
-class TaskDeleteView(generic.DeleteView, LoginRequiredMixin):
+class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Task
     success_url = reverse_lazy('task_manager:tasks-list')
 
 
-class TaskCreateView(generic.CreateView, LoginRequiredMixin):
+class TaskCreateView(LoginRequiredMixin, generic.CreateView):
     model = Task
     form_class = TaskForm
     success_url = reverse_lazy('task_manager:tasks-list')
@@ -124,7 +124,7 @@ def change_task_is_completed(request, pk):
     return HttpResponseRedirect(reverse_lazy('task_manager:task-detail', args=[pk]))
 
 
-class PositionListView(generic.ListView, LoginRequiredMixin):
+class PositionListView(LoginRequiredMixin, generic.ListView):
     model = Position
     paginate_by = 5
 
@@ -144,28 +144,28 @@ class PositionListView(generic.ListView, LoginRequiredMixin):
         return queryset
 
 
-class PositionDetailView(generic.DetailView, LoginRequiredMixin):
+class PositionDetailView(LoginRequiredMixin, generic.DetailView):
     model = Position
 
 
-class PositionUpdateView(generic.UpdateView, LoginRequiredMixin):
-    model = Position
-    fields = '__all__'
-    success_url = reverse_lazy('task_manager:position-list')
-
-
-class PositionDeleteView(generic.DeleteView, LoginRequiredMixin):
-    model = Position
-    success_url = reverse_lazy('task_manager:position-list')
-
-
-class PositionCreateView(generic.CreateView, LoginRequiredMixin):
+class PositionUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Position
     fields = '__all__'
     success_url = reverse_lazy('task_manager:position-list')
 
 
-class WorkerListView(generic.ListView, LoginRequiredMixin):
+class PositionDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Position
+    success_url = reverse_lazy('task_manager:position-list')
+
+
+class PositionCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Position
+    fields = '__all__'
+    success_url = reverse_lazy('task_manager:position-list')
+
+
+class WorkerListView(LoginRequiredMixin, generic.ListView):
     model = Worker
     paginate_by = 5
 
@@ -185,21 +185,21 @@ class WorkerListView(generic.ListView, LoginRequiredMixin):
         return queryset
 
 
-class WorkerDetailView(generic.DetailView, LoginRequiredMixin):
+class WorkerDetailView(LoginRequiredMixin, generic.DetailView):
     model = Worker
 
 
-class WorkerUpdateView(generic.UpdateView, LoginRequiredMixin):
+class WorkerUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Worker
     fields = ['position']
     success_url = reverse_lazy('task_manager:worker-list')
 
 
-class WorkerDeleteView(generic.DeleteView, LoginRequiredMixin):
+class WorkerDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Worker
     success_url = reverse_lazy('task_manager:worker-list')
 
 
-class WorkerCreateView(generic.CreateView, LoginRequiredMixin):
+class WorkerCreateView(LoginRequiredMixin, generic.CreateView):
     model = Worker
     form_class = WorkerCreationForm
