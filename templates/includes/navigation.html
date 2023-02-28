@@ -44,6 +44,12 @@
                       <p class="d-inline text-sm z-index-1 font-weight-bold" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Logout">Logout</p>
                     </a>
                   </li>
+                {% else %}
+                  <li class="nav-item ms-lg-auto">
+                    <a class="nav-link nav-link-icon me-2" href="{% url 'login' %}">
+                      <p class="d-inline text-sm z-index-1 font-weight-bold" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Login">Sign In</p>
+                    </a>
+                  </li>
                 {% endif %}
               </ul>
             </div>
