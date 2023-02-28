@@ -16,38 +16,26 @@
               </span>
             </button>
             <div class="collapse navbar-collapse pt-3 pb-2 py-lg-0" id="navigation">
-              <ul class="navbar-nav navbar-nav-hover ms-lg-12 ps-lg-5 w-100">
-                <li class="nav-item dropdown dropdown-hover mx-2">
-                  <a class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" id="dropdownMenuPages" data-bs-toggle="dropdown" aria-expanded="false">
+              <ul class="navbar-nav navbar-nav-hover ms-lg-12 w-100">
+                <li class="nav-item mx-2">
+                  <a class="nav-link ps-2 d-flex justify-content-between align-items-center" href="{% url 'task_manager:tasks-list' %}">
                     Tasks
-                    <img src="{{ ASSETS_ROOT }}/img/down-arrow-dark.svg" alt="down-arrow" class="arrow ms-1">
                   </a>
-                  <div class="dropdown-menu dropdown-menu-animation dropdown-md p-3 border-radius-lg mt-0 mt-lg-3" aria-labelledby="dropdownMenuPages">
-                    <div class="d-none d-lg-block">
-                      <a href="{% url 'task_manager:task-types' %}" class="dropdown-item border-radius-md">
-                        Task Types
-                      </a>
-                      <a href="{% url 'task_manager:tasks-list' %}" class="dropdown-item border-radius-md">
-                        Tasks
-                      </a>
-                    </div>
-                  </div>
                 </li>
-                <li class="nav-item dropdown dropdown-hover mx-2">
-                  <a class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" id="dropdownMenuPages" data-bs-toggle="dropdown" aria-expanded="false">
-                    Workers
-                    <img src="{{ ASSETS_ROOT }}/img/down-arrow-dark.svg" alt="down-arrow" class="arrow ms-1">
+                <li class="nav-item mx-2">
+                  <a class="nav-link ps-2 d-flex justify-content-between align-items-center" href="{% url 'task_manager:task-types' %}">
+                    Task Types
                   </a>
-                  <div class="dropdown-menu dropdown-menu-animation dropdown-md p-3 border-radius-lg mt-0 mt-lg-3" aria-labelledby="dropdownMenuPages">
-                    <div class="d-none d-lg-block">
-                      <a href="{% url 'task_manager:worker-list' %}" class="dropdown-item border-radius-md">
-                        Team Members
-                      </a>
-                      <a href="{% url 'task_manager:position-list' %}" class="dropdown-item border-radius-md">
-                        Worker`s Positions
-                      </a>
-                    </div>
-                  </div>
+                </li>
+                <li class="nav-item mx-2">
+                  <a class="nav-link ps-2 d-flex justify-content-between align-items-center" href="{% url 'task_manager:position-list' %}">
+                    Worker`s Positions
+                  </a>
+                </li>
+                <li class="nav-item mx-2">
+                  <a class="nav-link ps-2 d-flex justify-content-between align-items-center" href="{% url 'task_manager:worker-list' %}">
+                    Team Members
+                  </a>
                 </li>
                 {% if user.is_authenticated %}
                   <li class="nav-item ms-lg-auto">
