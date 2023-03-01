@@ -45,7 +45,7 @@
               <li class="list-group-item">
                 <h6 class="mb-0">Deadline:</h6>
                 <p class="text-dark">{{ task.deadline }}</p>
-                {% if date > task.deadline %}
+                {% if date > task.deadline and not task.is_completed %}
                   <p class="text-danger">Missed deadline</p>
                 {% endif %}
               </li>

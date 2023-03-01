@@ -36,7 +36,11 @@
                 <td>{{ task.task_type }}</td>
                 <td>{{ task.priority }}</td>
                 <td>{{ task.deadline }}</td>
-                <td>{{ task.is_completed|yesno:"Completed,Uncompleted" }}</td>
+                {% if task.is_completed %}
+                  <td class="text-success">Completed</td>
+                {% else %}
+                  <td class="text-danger">Uncompleted</td>
+                {% endif %}
               </tr>
             {% empty %}
             <tr>
