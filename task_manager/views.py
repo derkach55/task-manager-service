@@ -5,6 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
+from django.utils import timezone
 from django.views import generic, View
 
 from task_manager.forms import TaskForm, WorkerCreationForm, TaskTypeSearchForm, TaskSearchForm, PositionSearchForm, \
@@ -99,6 +100,11 @@ class TaskTypeCreateView(LoginRequiredMixin, generic.CreateView):
 class TaskDetailView(LoginRequiredMixin, generic.DetailView):
     model = Task
     template_name = 'task_manager/task_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(TaskDetailView, self).get_context_data()
+        context['date'] = timezone.now()
+        return context
 
 
 class TaskUpdateView(LoginRequiredMixin, generic.UpdateView):
