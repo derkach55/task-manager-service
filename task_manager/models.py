@@ -26,6 +26,9 @@ class Worker(AbstractUser):
     def get_absolute_url(self):
         return reverse('task_manager:worker-detail', args=[self.pk])
 
+    class Meta:
+        ordering = ['username']
+
 
 class Task(models.Model):
     PRIORITY_CHOICES = (
