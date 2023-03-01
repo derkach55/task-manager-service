@@ -9,9 +9,9 @@
     <div class="row">
       <div class="col-lg-12">
         <div class="card">
-          <div class="card-header pb-0">
-            <h6>
-              Task Detail
+          <div class="card-header">
+            <h3 style="margin-left: 15px">
+              {{ task.name }}
               <a href="{% url 'task_manager:task-delete' task.pk %}">
                 <button type="button" class="btn btn-danger w-auto me-1 mb-0" style="float: right">
                    Delete
@@ -35,48 +35,45 @@
                   </button>
                 </a>
               {% endif %}
-            </h6>
+            </h3>
           </div>
-          <div class="card-body px-0 pt-0 pb-2">
+          <div class="card-body pt-0 pb-2">
             <ul class="list-group list-group-flush">
               <li class="list-group-item">
-                <h6 class="mb-0">Name:</h6>
-                <p class="text-secondary">{{ task.name }}</p>
-              </li>
-              <li class="list-group-item">
-                <h6 class="mb-0">Task Type:</h6>
-                <p class="text-secondary">{{ task.task_type }}</p>
-              </li>
-              <li class="list-group-item">
-                <h6 class="mb-0">Description:</h6>
-                <p class="text-secondary">{{ task.description }}</p>
+                <p class="text-dark">{{ task.description }}</p>
               </li>
               <li class="list-group-item">
                 <h6 class="mb-0">Deadline:</h6>
-                <p class="text-secondary">{{ task.deadline }}</p>
+                <p class="text-dark">{{ task.deadline }}</p>
+                {% if date > task.deadline %}
+                  <p class="text-danger">Missed deadline</p>
+                {% endif %}
               </li>
               <li class="list-group-item">
                 <h6 class="mb-0">Priority:</h6>
-                <p class="text-secondary">{{ task.priority }}</p>
+                <p class="text-dark">{{ task.priority }}</p>
               </li>
               <li class="list-group-item">
                 <h6 class="mb-0">Status:</h6>
-                <p class="text-secondary">
-                  {{ task.is_completed|yesno:"Completed,Uncompleted" }}
-                </p>
+                  {% if task.is_completed %}
+                    <p class="text-success">Completed</p>
+                  {% else %}
+                    <p class="text-danger">Uncompleted</p>
+                  {% endif %}
               </li>
               {% if task.assignees %}
-                <div class="card-header pb-0">
-                  <h6>Assignees</h6>
+                <div class="card-header">
+                  <h3>Assignees</h3>
                 </div>
                 {% for assignee in task.assignees.all %}
                   <li class="list-group-item">
-                    <h6 class="mb-0">Username:</h6>
-                    <p class="text-secondary">{{ assignee.username }}</p>
+                    <a href="{% url 'task_manager:worker-detail' assignee.pk %}">
+                      <p class="text-dark">{{ assignee }}</p>
+                    </a>
                   </li>
                 {% empty %}
                   <li class="list-group-item">
-                    <p class="text-secondary">No assignees found.</p>
+                    <p class="text-dark">No assignees found.</p>
                   </li>
                 {% endfor %}
               {% endif %}
