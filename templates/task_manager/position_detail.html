@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  {{ position.name }}
+{% endblock %}
+
+{% block content %}
+  <div class="container-fluid py-4">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-header pb-0">
+            <h3>
+              {{ position.name }}
+              <a href="{% url 'task_manager:position-delete' position.pk %}">
+                <button type="button" class="btn btn-danger w-auto me-1 mb-0" style="float: right">
+                   Delete
+                </button>
+              </a>
+              <a href="{% url 'task_manager:position-update' position.pk %}">
+                <button type="button" class="btn btn-info w-auto me-1 mb-0" style="float: right">
+                  Update
+                </button>
+              </a>
+            </h3>
+          </div>
+          <div class="card-body px-0 pt-0 pb-2">
+            <ul class="list-group list-group-flush">
+              {% if position.worker_set %}
+                <div class="card-header pb-0">
+                  <h4>Assignees</h4>
+                </div>
+                {% for worker in position.worker_set.all %}
+                  <li class="list-group-item">
+                    <p class="text-dark">
+                      <a href="{% url 'task_manager:worker-detail' worker.pk %}">
+                        {{ worker.username }} ({{ worker.first_name }} {{ worker.last_name }})
+                      </a>
+                    </p>
+                  </li>
+                {% empty %}
+                  <li class="list-group-item">
+                    <p class="text-dark">No assignees found.</p>
+                  </li>
+                {% endfor %}
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

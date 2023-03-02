@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Tasks
+{% endblock %}
+
+{% block content %}
+  <div class="card" style="margin-top: 50px">
+    <div class="card-header">
+      <h3 class="card-title">
+        Tasks List
+        <a href="{% url 'task_manager:task-create' %}">
+          <button type="button" class="btn btn-success w-auto me-1 mb-0" style="float: right">
+            Create
+          </button>
+        </a>
+      </h3>
+    </div>
+    {% include 'includes/search_form.html' %}
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover table-outline table-vcenter text-nowrap">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Task Type</th>
+              <th>Priority</th>
+              <th>Deadline</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for task in task_list %}
+              <tr>
+                <td><a href="{% url 'task_manager:task-detail' task.pk %}">{{ task.name }}</a></td>
+                <td>{{ task.task_type }}</td>
+                <td>{{ task.priority }}</td>
+                <td>{{ task.deadline }}</td>
+                {% if task.is_completed %}
+                  <td class="text-success">Completed</td>
+                {% else %}
+                  <td class="text-danger">Uncompleted</td>
+                {% endif %}
+              </tr>
+            {% empty %}
+            <tr>
+              <td colspan="5" class="text-center">No items found.</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  {% include 'includes/pagination.html' %}
+{% endblock %}
