@@ -1,7 +1,6 @@
-from typing import Any
-
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import QuerySet
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
@@ -34,14 +33,14 @@ class TasksListView(LoginRequiredMixin, generic.ListView):
     template_name = 'task_manager/tasks_list.html'
     paginate_by = 5
 
-    def get_context_data(self, *, object_list=None, **kwargs) -> Any:
+    def get_context_data(self, *, object_list=None, **kwargs) -> dict:
         context = super(TasksListView, self).get_context_data()
         name = self.request.GET.get('name', '')
         context['search_field'] = TaskSearchForm(initial={'name': name})
 
         return context
 
-    def get_queryset(self) -> Any:
+    def get_queryset(self) -> QuerySet:
         queryset = super(TasksListView, self).get_queryset()
         name = self.request.GET.get('name')
         if name:
@@ -56,14 +55,14 @@ class TaskTypeListView(LoginRequiredMixin, generic.ListView):
     template_name = 'task_manager/task_type_list.html'
     paginate_by = 5
 
-    def get_context_data(self, *, object_list=None, **kwargs) -> Any:
+    def get_context_data(self, *, object_list=None, **kwargs) -> dict:
         context = super(TaskTypeListView, self).get_context_data()
         name = self.request.GET.get('name', '')
         context['search_field'] = TaskTypeSearchForm(initial={'name': name})
 
         return context
 
-    def get_queryset(self) -> Any:
+    def get_queryset(self) -> QuerySet:
         queryset = super(TaskTypeListView, self).get_queryset()
         name = self.request.GET.get('name')
         if name:
@@ -101,7 +100,7 @@ class TaskDetailView(LoginRequiredMixin, generic.DetailView):
     model = Task
     template_name = 'task_manager/task_detail.html'
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict:
         context = super(TaskDetailView, self).get_context_data()
         context['date'] = timezone.now()
         return context
@@ -137,14 +136,14 @@ class PositionListView(LoginRequiredMixin, generic.ListView):
     model = Position
     paginate_by = 5
 
-    def get_context_data(self, *, object_list=None, **kwargs) -> Any:
+    def get_context_data(self, *, object_list=None, **kwargs) -> dict:
         context = super(PositionListView, self).get_context_data()
         name = self.request.GET.get('name', '')
         context['search_field'] = PositionSearchForm(initial={'name': name})
 
         return context
 
-    def get_queryset(self) -> Any:
+    def get_queryset(self) -> QuerySet:
         queryset = super(PositionListView, self).get_queryset()
         name = self.request.GET.get('name')
         if name:
@@ -178,14 +177,14 @@ class WorkerListView(LoginRequiredMixin, generic.ListView):
     model = Worker
     paginate_by = 5
 
-    def get_context_data(self, *, object_list=None, **kwargs) -> Any:
+    def get_context_data(self, *, object_list=None, **kwargs) -> dict:
         context = super(WorkerListView, self).get_context_data()
         user_name = self.request.GET.get('user_name', '')
         context['search_field'] = WorkerSearchForm(initial={'user_name': user_name})
 
         return context
 
-    def get_queryset(self) -> Any:
+    def get_queryset(self) -> QuerySet:
         queryset = super(WorkerListView, self).get_queryset()
         user_name = self.request.GET.get('user_name')
         if user_name:

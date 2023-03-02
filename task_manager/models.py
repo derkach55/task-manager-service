@@ -6,24 +6,24 @@ from django.urls import reverse
 class TaskType(models.Model):
     name = models.CharField(max_length=255)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
 
 class Position(models.Model):
     name = models.CharField(max_length=255)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
 
 class Worker(AbstractUser):
     position = models.ForeignKey(Position, on_delete=models.CASCADE, null=True)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"{self.username}({self.first_name} {self.last_name}): {self.position}"
 
-    def get_absolute_url(self):
+    def get_absolute_url(self) -> str:
         return reverse('task_manager:worker-detail', args=[self.pk])
 
     class Meta:
@@ -48,5 +48,5 @@ class Task(models.Model):
     class Meta:
         ordering = ['is_completed', '-priority']
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
