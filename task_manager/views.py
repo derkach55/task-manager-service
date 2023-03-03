@@ -125,7 +125,7 @@ class TaskCreateView(LoginRequiredMixin, generic.CreateView):
 
 class ChangeTaskStatusView(LoginRequiredMixin, View):
 
-    def get(self, request, pk):
+    def post(self, request, pk):
         task = get_object_or_404(Task, id=pk)
         task.is_completed = not task.is_completed
         task.save()
