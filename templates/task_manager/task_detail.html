@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Tasks
+{% endblock %}
+
+{% block content %}
+  <div class="container-fluid py-4">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-header">
+            <h3 style="margin-left: 15px">
+              {{ task.name }}
+              <a href="{% url 'task_manager:task-delete' task.pk %}">
+                <button type="button" class="btn btn-danger w-auto me-1 mb-0" style="float: right">
+                   Delete
+                </button>
+              </a>
+              <a href="{% url 'task_manager:task-update' task.pk %}">
+                <button type="button" class="btn btn-info w-auto me-1 mb-0" style="float: right">
+                  Update
+                </button>
+              </a>
+              <form action="{% url 'task_manager:change_is_completed' task.pk %}" method="post" class="form-control-color">
+                {% csrf_token %}
+                {% if not task.is_completed %}
+                  <input type="submit" value="Mark as done" class="btn btn-success w-auto me-1 mb-0">
+                {% else %}
+                  <input type="submit" value="Mark as undone" class="btn btn-danger w-auto me-1 mb-0">
+                {% endif %}
+              </form>
+            </h3>
+          </div>
+          <div class="card-body pt-0 pb-2">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <p class="text-dark">{{ task.description }}</p>
+              </li>
+              <li class="list-group-item">
+                <h6 class="mb-0">Deadline:</h6>
+                <p class="text-dark">{{ task.deadline }}</p>
+                {% if date > task.deadline and not task.is_completed %}
+                  <p class="text-danger">Missed deadline</p>
+                {% endif %}
+              </li>
+              <li class="list-group-item">
+                <h6 class="mb-0">Priority:</h6>
+                <p class="text-dark">{{ task.priority }}</p>
+              </li>
+              <li class="list-group-item">
+                <h6 class="mb-0">Status:</h6>
+                  {% if task.is_completed %}
+                    <p class="text-success">Completed</p>
+                  {% else %}
+                    <p class="text-danger">Uncompleted</p>
+                  {% endif %}
+              </li>
+              {% if task.assignees %}
+                <div class="card-header">
+                  <h3>Assignees</h3>
+                </div>
+                {% for assignee in task.assignees.all %}
+                  <li class="list-group-item">
+                    <a href="{% url 'task_manager:worker-detail' assignee.pk %}">
+                      <p class="text-dark">{{ assignee }}</p>
+                    </a>
+                  </li>
+                {% empty %}
+                  <li class="list-group-item">
+                    <p class="text-dark">No assignees found.</p>
+                  </li>
+                {% endfor %}
+              {% endif %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

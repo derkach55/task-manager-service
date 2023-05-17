@@ -1,0 +1,12 @@
+asgiref==3.6.0
+crispy-bootstrap5==0.7
+dj-database-url==1.2.0
+Django==4.1.7
+django-crispy-forms==2.0
+django-theme-material-kit==1.0.19
+django-theme-soft-design==1.0.10
+login==0.0.6
+psycopg2==2.9.5
+sqlparse==0.4.3
+tzdata==2022.7
+whitenoise==6.4.0
